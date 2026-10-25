@@ -9,6 +9,7 @@ Clone the repository, then install the command:
 ```sh
 git clone https://github.com/Prafull5/mac-pomodoro-pal.git
 cd mac-pomodoro-pal
+chmod +x install-command pomodoro
 ./install-command
 ```
 
