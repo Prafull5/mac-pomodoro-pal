@@ -4,10 +4,12 @@ A tiny native macOS Pomodoro companion. Pick an animated avatar, watch it fill w
 
 ## Run
 
-One-time setup from any Terminal location:
+Clone the repository, then install the command:
 
 ```sh
-/Users/ps/Projects/Mac_Pomodoro/install-command
+git clone https://github.com/Prafull5/mac-pomodoro-pal.git
+cd mac-pomodoro-pal
+./install-command
 ```
 
 Open a new Terminal window, then run from any directory:
@@ -16,10 +18,10 @@ Open a new Terminal window, then run from any directory:
 pomodoro
 ```
 
-From your home directory, `./pomodoro` also works. Without installing the shortcut, you can launch directly from any directory with:
+From your home directory, `./pomodoro` also works. Without installing the shortcut, launch directly from the cloned directory with:
 
 ```sh
-/Users/ps/Projects/Mac_Pomodoro/pomodoro
+./pomodoro
 ```
 
 The first launch compiles the app and opens a local app bundle. You can close Terminal afterward. Later launches reuse the compiled build when nothing changed. Quit from the menu bar app when you're done.
