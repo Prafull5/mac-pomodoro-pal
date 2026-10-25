@@ -1,0 +1,26 @@
+#!/bin/sh
+set -eu
+launcher_path=$0
+case "$launcher_path" in
+  /*) ;;
+  *) launcher_path="$PWD/$launcher_path" ;;
+esac
+while [ -L "$launcher_path" ]; do
+  link_target=$(readlink "$launcher_path")
+  case "$link_target" in
+    /*) launcher_path="$link_target" ;;
+    *) launcher_path="$(dirname "$launcher_path")/$link_target" ;;
+  esac
+done
+cd "$(dirname "$launcher_path")"
+mkdir -p .build/cache .build/module-cache
+export CLANG_MODULE_CACHE_PATH="$PWD/.build/module-cache"
+export XDG_CACHE_HOME="$PWD/.build/cache"
+swift build -c release --disable-sandbox --cache-path "$PWD/.build/cache" --quiet
+app_bundle="$PWD/.build/PomodoroPal.app"
+mkdir -p "$app_bundle/Contents/MacOS" "$app_bundle/Contents/Resources"
+cp .build/release/PomodoroPal "$app_bundle/Contents/MacOS/PomodoroPal"
+cp Resources/Info.plist "$app_bundle/Contents/Info.plist"
+cp Resources/PomodoroPal.icns "$app_bundle/Contents/Resources/PomodoroPal.icns"
+codesign --force --sign - "$app_bundle" >/dev/null
+open -a "$app_bundle"
